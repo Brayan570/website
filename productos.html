@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Índice de Productos de Tecnología</title>
+    <link rel="icon" href="./main-logo-transparent.png" type="image/x-icon" />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f8f9fa;
+      }
+      header {
+        background-color: #0066cc;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 30px;
+      }
+      h1 {
+        margin: 0;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .category {
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        flex: 1 1 350px;
+        margin-bottom: 20px;
+      }
+      .category h2 {
+        color: #0066cc;
+        border-bottom: 2px solid #0066cc;
+        padding-bottom: 10px;
+        margin-top: 0;
+      }
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+      .main-category {
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .sub-category {
+        padding-left: 20px;
+      }
+      .sub-sub-category {
+        padding-left: 40px;
+        font-size: 0.9em;
+        color: #555;
+      }
+      footer {
+        text-align: center;
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Productos de Tecnología</h1>
+      <p>Catálogo ConnectShop</p>
+    </header>
+
+    <div class="container">
+      <!-- Computadoras -->
+      <div class="category">
+        <h2>1. Computadoras</h2>
+        <ul>
+          <li class="main-category">1.1. Laptops</li>
+          <li class="sub-category">1.1.1. Ultrabooks</li>
+          <li class="sub-category">1.1.2. Gaming</li>
+          <li class="sub-category">1.1.3. Convertibles/2 en 1</li>
+          <li class="sub-category">1.1.4. Workstations</li>
+          <li class="sub-category">1.1.5. Chromebooks</li>
+          <li class="sub-category">1.1.6. Laptops para estudiantes</li>
+
+          <li class="main-category">1.2. Computadoras de Escritorio</li>
+          <li class="sub-category">1.2.1. Todo en Uno</li>
+          <li class="sub-category">1.2.2. Gaming</li>
+          <li class="sub-category">1.2.3. Workstations</li>
+          <li class="sub-category">1.2.4. PCs ensambladas</li>
+
+          <li class="main-category">1.3. Servidores</li>
+          <li class="sub-category">1.3.1. Torres</li>
+          <li class="sub-category">1.3.2. Rack</li>
+          <li class="sub-category">1.3.3. Blade</li>
+
+          <li class="main-category">1.4. Mini PCs</li>
+          <li class="sub-category">1.4.1. Mini PCs para oficina</li>
+          <li class="sub-category">1.4.2. Mini PCs para entretenimiento</li>
+        </ul>
+      </div>
+
+      <!-- Componentes de PC -->
+      <div class="category">
+        <h2>2. Componentes de PC</h2>
+        <ul>
+          <li class="main-category">2.1. Procesadores</li>
+          <li class="sub-category">2.1.1. AMD</li>
+          <li class="sub-category">2.1.2. Intel</li>
+
+          <li class="main-category">2.2. Tarjetas Madre</li>
+          <li class="sub-category">2.2.1. Socket AMD</li>
+          <li class="sub-category">2.2.2. Socket Intel</li>
+
+          <li class="main-category">2.3. Memoria RAM</li>
+          <li class="sub-category">2.3.1. DDR4</li>
+          <li class="sub-category">2.3.2. DDR5</li>
+
+          <li class="main-category">2.4. Almacenamiento</li>
+          <li class="sub-category">2.4.1. Discos Duros (HDD)</li>
+          <li class="sub-category">2.4.2. Unidades de Estado Sólido (SSD)</li>
+          <li class="sub-category">2.4.3. NVMe</li>
+          <li class="sub-category">2.4.4. Almacenamiento Externo</li>
+
+          <li class="main-category">2.5. Tarjetas Gráficas</li>
+          <li class="sub-category">2.5.1. NVIDIA</li>
+          <li class="sub-category">2.5.2. AMD</li>
+          <li class="sub-category">2.5.3. Intel Arc</li>
+
+          <li class="main-category">2.6. Fuentes de Poder</li>
+          <li class="main-category">2.7. Gabinetes</li>
+          <li class="main-category">2.8. Sistemas de Enfriamiento</li>
+          <li class="main-category">2.9. Cables y Adaptadores</li>
+        </ul>
+      </div>
+
+      <!-- Dispositivos Móviles -->
+      <div class="category">
+        <h2>3. Dispositivos Móviles</h2>
+        <ul>
+          <li class="main-category">3.1. Smartphones</li>
+          <li class="sub-category">3.1.1. Gama Alta</li>
+          <li class="sub-category">3.1.2. Gama Media</li>
+          <li class="sub-category">3.1.3. Gama Económica</li>
+          <li class="sub-category">3.1.4. Plegables</li>
+
+          <li class="main-category">3.2. Tablets</li>
+          <li class="sub-category">3.2.1. Android</li>
+          <li class="sub-category">3.2.2. iPad</li>
+          <li class="sub-category">3.2.3. Windows</li>
+
+          <li class="main-category">3.3. Accesorios para Móviles</li>
+          <li class="sub-category">3.3.1. Cargadores</li>
+          <li class="sub-category">3.3.2. Fundas y Protectores</li>
+          <li class="sub-category">3.3.3. Power Banks</li>
+          <li class="sub-category">3.3.4. Soportes y Stands</li>
+          <li class="sub-category">3.3.5. Screen Protectors</li>
+          <li class="sub-category">3.3.6. Lentes para cámaras</li>
+        </ul>
+      </div>
+
+      <!-- Periféricos -->
+      <div class="category">
+        <h2>4. Periféricos</h2>
+        <ul>
+          <li class="main-category">4.1. Monitores</li>
+          <li class="sub-category">4.1.1. Gaming</li>
+          <li class="sub-category">4.1.2. 4K/UHD</li>
+          <li class="sub-category">4.1.3. Ultrawide</li>
+          <li class="sub-category">4.1.4. Para Diseño</li>
+
+          <li class="main-category">4.2. Teclados</li>
+          <li class="main-category">4.3. Ratones</li>
+          <li class="main-category">4.4. Audífonos y Auriculares</li>
+          <li class="main-category">4.5. Webcams</li>
+          <li class="main-category">4.6. Parlantes</li>
+          <li class="main-category">4.7. Micrófonos</li>
+          <li class="main-category">4.8. Mousepad/Alfombrillas</li>
+        </ul>
+      </div>
+
+      <!-- Redes y Conectividad -->
+      <div class="category">
+        <h2>5. Redes y Conectividad</h2>
+        <ul>
+          <li class="main-category">5.1. Routers</li>
+          <li class="sub-category">5.1.1. WiFi 6</li>
+          <li class="sub-category">5.1.2. WiFi 7</li>
+          <li class="sub-category">5.1.3. Gaming</li>
+
+          <li class="main-category">5.2. Switches</li>
+          <li class="main-category">5.3. Módems</li>
+          <li class="main-category">5.4. Repetidores/Extenders</li>
+          <li class="main-category">5.5. Adaptadores WiFi</li>
+          <li class="main-category">5.6. Sistemas Mesh</li>
+          <li class="main-category">5.7. Cables de Red</li>
+        </ul>
+      </div>
+
+      <!-- Impresión y Escaneo -->
+      <div class="category">
+        <h2>6. Impresión y Escaneo</h2>
+        <ul>
+          <li class="main-category">6.1. Impresoras Láser</li>
+          <li class="main-category">6.2. Impresoras de Inyección de Tinta</li>
+          <li class="main-category">6.3. Impresoras Multifunción</li>
+          <li class="main-category">6.4. Escáneres</li>
+          <li class="main-category">6.5. Consumibles</li>
+          <li class="main-category">6.6. Impresoras 3D</li>
+        </ul>
+      </div>
+
+      <!-- Audio y Video -->
+      <div class="category">
+        <h2>7. Audio y Video</h2>
+        <ul>
+          <li class="main-category">7.1. Smart TVs</li>
+          <li class="main-category">7.2. Proyectores</li>
+          <li class="main-category">7.3. Sistemas de Sonido</li>
+          <li class="main-category">7.4. Reproductores de Streaming</li>
+          <li class="main-category">7.5. Cables HDMI/DisplayPort/Audio</li>
+        </ul>
+      </div>
+
+      <!-- Fotografía y Video -->
+      <div class="category">
+        <h2>8. Fotografía y Video</h2>
+        <ul>
+          <li class="main-category">8.1. Cámaras Digitales</li>
+          <li class="main-category">8.2. Cámaras DSLR</li>
+          <li class="main-category">8.3. Cámaras Mirrorless</li>
+          <li class="main-category">8.4. Videocámaras</li>
+          <li class="main-category">8.5. Drones con Cámara</li>
+          <li class="main-category">8.6. Accesorios</li>
+        </ul>
+      </div>
+
+      <!-- Gaming -->
+      <div class="category">
+        <h2>9. Gaming</h2>
+        <ul>
+          <li class="main-category">9.1. Consolas</li>
+          <li class="main-category">9.2. Videojuegos</li>
+          <li class="main-category">9.3. Controles y Mandos</li>
+          <li class="main-category">9.4. Sillas Gaming</li>
+          <li class="main-category">9.5. Accesorios para Consolas</li>
+          <li class="main-category">9.6. Escritorios Gaming</li>
+          <li class="main-category">9.7. Realidad Virtual</li>
+        </ul>
+      </div>
+
+      <!-- Dispositivos Inteligentes -->
+      <div class="category">
+        <h2>10. Dispositivos Inteligentes</h2>
+        <ul>
+          <li class="main-category">10.1. Asistentes Virtuales</li>
+          <li class="main-category">10.2. Domótica</li>
+          <li class="main-category">10.3. Wearables</li>
+          <li class="main-category">10.4. Cámaras de Seguridad</li>
+          <li class="main-category">10.5. Electrodomésticos Inteligentes</li>
+        </ul>
+      </div>
+
+      <!-- Software -->
+      <div class="category">
+        <h2>11. Software</h2>
+        <ul>
+          <li class="main-category">11.1. Sistemas Operativos</li>
+          <li class="main-category">11.2. Antivirus y Seguridad</li>
+          <li class="main-category">11.3. Ofimática</li>
+          <li class="main-category">11.4. Diseño y Multimedia</li>
+          <li class="main-category">11.5. Desarrollo y Programación</li>
+          <li class="main-category">11.6. Suscripciones Digitales</li>
+        </ul>
+      </div>
+
+      <!-- Energía y Protección -->
+      <div class="category">
+        <h2>12. Energía y Protección</h2>
+        <ul>
+          <li class="main-category">12.1. UPS</li>
+          <li class="main-category">12.2. Reguladores de Voltaje</li>
+          <li class="main-category">12.3. Multicontactos</li>
+          <li class="main-category">12.4. Protectores de Sobretensión</li>
+          <li class="main-category">12.5. Baterías y Cargadores</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 - Índice de Productos de Tecnología para ConnectShop</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - E-commerce</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./main-logo-transparent.png" type="image/x-icon" />
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(120deg, #1a1a1a, #2a2d3e);
+        font-family: "Arial", sans-serif;
+        animation: fadeIn 1s ease;
+        overflow: hidden;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .login-container {
+        background: #121212;
+        padding: 20px 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        text-align: center;
+        width: 320px;
+        transform: scale(0.9);
+        animation: popIn 0.5s ease forwards;
+        transition: transform 0.3s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .login-container:hover {
+        transform: scale(1.05);
+      }
+      @keyframes popIn {
+        to {
+          transform: scale(1);
+        }
+      }
+      .login-container h2 {
+        margin-bottom: 20px;
+        color: #ddd;
+        font-size: 1.8em;
+      }
+      .login-container input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #555;
+        border-radius: 5px;
+        background-color: #222;
+        color: #ddd;
+        transition: box-shadow 0.3s ease;
+      }
+      .login-container input:focus {
+        box-shadow: 0 0 15px #4caf50;
+        outline: none;
+      }
+      .login-container button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(90deg, #4caf50, #45a049);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        animation: buttonGlow 2s infinite alternate;
+      }
+      @keyframes buttonGlow {
+        from {
+          box-shadow: 0 0 10px #4caf50;
+        }
+        to {
+          box-shadow: 0 0 20px #45a049;
+        }
+      }
+      .login-container button:hover {
+        transform: translateY(-3px) scale(1.05);
+      }
+      .login-container a {
+        display: block;
+        margin-top: 10px;
+        color: #4caf50;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      .login-container a:hover {
+        color: #ddd;
+        text-decoration: underline;
+      }
+      .login-container i {
+        font-size: 50px;
+        color: #4caf50;
+        margin-bottom: 10px;
+      }
+
+      /* Particles effect */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        background: radial-gradient(circle, #4caf50, transparent);
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: float 8s linear infinite, colorShift 6s infinite alternate,
+          particleHover 0.3s ease infinite alternate;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh);
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-10vh);
+          opacity: 0;
+        }
+      }
+
+      @keyframes colorShift {
+        0% {
+          background: radial-gradient(circle, #4caf50, transparent);
+        }
+        50% {
+          background: radial-gradient(circle, #ff5722, transparent);
+        }
+        100% {
+          background: radial-gradient(circle, #2196f3, transparent);
+        }
+      }
+
+      @keyframes particleHover {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.8);
+        }
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./login.js"></script>
+  </head>
+  <body>
+    <div class="particles" id="particles"></div>
+    <div id="form-wrapper" class="login-container">
+      <i class="fas fa-store"></i>
+      <h2>Bienvenido a tu Tienda</h2>
+      <input
+        name="username"
+        type="text"
+        placeholder="Correo electrónico"
+        required
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Contraseña"
+        required
+      />
+      <button type="button" onclick="validateLogin()">Iniciar sesión</button>
+      <a href="#">¿Olvidaste tu contraseña?</a>
+      <a href="#" onclick="showRegisterForm()">Crear una cuenta</a>
+    </div>
+    <script src="./login.js"></script>
+    <script src="./inner.js"></script>
+    <script>
+      const particlesContainer = document.getElementById("particles");
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.animationDuration = `${Math.random() * 3 + 5}s`;
+        particlesContainer.appendChild(particle);
+      }
+
+      // Función para cambiar a formulario de recuperación
+      const formWrapper = document.getElementById("form-wrapper");
+
+      function showForgotPasswordForm() {
+        formWrapper.innerHTML = `
+        <i class="fas fa-unlock-alt"></i>
+        <h2>Recuperar contraseña</h2>
+        <input
+          name="email"
+          type="email"
+          placeholder="Ingresa tu correo"
+          required
+        />
+        <button type="submit">Enviar enlace</button>
+        <a href="#" onclick="showLoginForm()">Volver al inicio de sesión</a>
+      `;
+      }
+
+      function showLoginForm() {
+        formWrapper.innerHTML = `
+        <i class="fas fa-store"></i>
+        <h2>Bienvenido a tu Tienda</h2>
+        <input
+          name="username"
+          type="text"
+          placeholder="Correo electrónico"
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Contraseña"
+          required
+        />
+        <button type="submit">Iniciar sesión</button>
+        <a href="#" onclick="showForgotPasswordForm()">¿Olvidaste tu contraseña?</a>
+        <a href="#">Crear una cuenta</a>
+      `;
+      }
+
+      // Asignar comportamiento al enlace original
+      document.addEventListener("DOMContentLoaded", () => {
+        const forgotLink = document.querySelector('a[href="#"]:nth-of-type(1)');
+        if (forgotLink) {
+          forgotLink.setAttribute("onclick", "showForgotPasswordForm()");
+        }
+      });
+    </script>
+  </body>
+</html>

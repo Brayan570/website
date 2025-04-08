@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard UI</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./main-logo-transparent.png" type="image/x-icon" />
+    <style>
+      #analytics-content {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      #analytics-content.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .cards,
+      .chart {
+        transition: opacity 0.5s ease;
+      }
+      #shop-button {
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+        background-color: #0d0457;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <h2>Dashboard</h2>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#" id="analytics">Analytics</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+            <li>
+              <a href="./tienda.html" id="shop-button">🛒 Ir a mi tienda</a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header>
+          <h1>Welcome, User!</h1>
+          <input type="search" placeholder="Search..." />
+        </header>
+
+        <section class="cards">
+          <div class="card">
+            <h3>Sales</h3>
+            <p>$15,230</p>
+          </div>
+          <div class="card">
+            <h3>Users</h3>
+            <p>1,200</p>
+          </div>
+          <div class="card">
+            <h3>Orders</h3>
+            <p>350</p>
+          </div>
+        </section>
+
+        <section class="chart">
+          <h2>Monthly Overview</h2>
+          <canvas id="salesChart"></canvas>
+        </section>
+
+        <section id="analytics-content" style="display: none">
+          <h2>Analytics Data</h2>
+          <p>Here’s where we’ll display detailed analytics...</p>
+          <button
+            id="back-btn"
+            style="
+              display: none;
+              padding: 10px 20px;
+              margin-top: 10px;
+              cursor: pointer;
+              background-color: #2a2d3e;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+            "
+          >
+            ⬅️ Back
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="apps.js"></script>
+    <script>
+      document.getElementById("analytics").addEventListener("click", (e) => {
+        e.preventDefault();
+        document.querySelector(".cards").style.opacity = "0";
+        document.querySelector(".chart").style.opacity = "0";
+        setTimeout(() => {
+          document.querySelector(".cards").style.display = "none";
+          document.querySelector(".chart").style.display = "none";
+          document.getElementById("analytics-content").style.display = "block";
+          document.getElementById("analytics-content").classList.add("show");
+          document.getElementById("analytics-content").innerHTML =
+            "<h2>Analytics Data</h2><p>✅ Visitors: 12,340</p><p>✅ Bounce Rate: 45%</p><p>✅ Avg. Session Duration: 3m 24s</p>";
+          document.getElementById("back-btn").style.display = "block";
+        }, 500);
+      });
+
+      document.getElementById("back-btn").addEventListener("click", () => {
+        document.getElementById("analytics-content").classList.remove("show");
+        setTimeout(() => {
+          document.getElementById("analytics-content").style.display = "none";
+          document.querySelector(".cards").style.display = "grid";
+          document.querySelector(".chart").style.display = "block";
+          setTimeout(() => {
+            document.querySelector(".cards").style.opacity = "1";
+            document.querySelector(".chart").style.opacity = "1";
+          }, 50);
+          document.getElementById("back-btn").style.display = "none";
+        }, 500);
+      });
+
+      document.getElementById("shop-button").addEventListener("click", () => {
+        window.location.href = "https://tu-tienda.com";
+      });
+    </script>
+  </body>
+</html>

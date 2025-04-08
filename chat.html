@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soporte</title>
+    <link rel="icon" href="./main-logo-transparent.png" type="image/x-icon" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+      }
+      .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+      .chat-box {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+      }
+      .message {
+        margin: 10px 0;
+        padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 80%;
+        line-height: 1.4;
+      }
+      .user {
+        align-self: flex-end;
+        background: #dcf8c6;
+      }
+      .bot {
+        align-self: flex-start;
+        background: #eee;
+      }
+      .input-area {
+        display: flex;
+        border-top: 1px solid #ccc;
+      }
+      input[type="text"] {
+        flex: 1;
+        padding: 15px;
+        border: none;
+        border-radius: 0;
+        outline: none;
+        font-size: 16px;
+      }
+      button {
+        padding: 15px;
+        border: none;
+        background: #1574b4;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #2067d1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-box" id="chatBox"></div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Escribe tu mensaje..." />
+        <button onclick="sendMessage()">Enviar</button>
+      </div>
+    </div>
+
+    <script>
+      const chatBox = document.getElementById("chatBox");
+      const userInput = document.getElementById("userInput");
+
+      async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+
+        appendMessage(message, "user");
+        userInput.value = "";
+
+        appendMessage("Escribiendo...", "bot", true);
+
+        try {
+          const response = await fetch("https://your-backend.com/api/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+          });
+          const data = await response.json();
+          removeTyping();
+          appendMessage(data.reply, "bot");
+        } catch (error) {
+          removeTyping();
+          appendMessage("Lo siento, hubo un error.", "bot");
+          console.error(error);
+        }
+      }
+
+      function appendMessage(text, sender, isTyping = false) {
+        const msg = document.createElement("div");
+        msg.className = `message ${sender}`;
+        msg.textContent = text;
+        if (isTyping) msg.id = "typing";
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function removeTyping() {
+        const typing = document.getElementById("typing");
+        if (typing) typing.remove();
+      }
+
+      userInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>

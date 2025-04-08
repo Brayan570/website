@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smartphones - ConnectShop</title>
+    <link rel="icon" href="./main-logo-transparent.png" type="image/x-icon" />
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --secondary: #8338ec;
+        --accent: #ff006e;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --success: #38b000;
+        --warning: #ffbe0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f5f7;
+        color: var(--dark);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .logo a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.3s;
+      }
+
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+
+      .user-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .search-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-bar input {
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: none;
+        width: 200px;
+        font-size: 0.9rem;
+      }
+
+      .search-bar button {
+        position: absolute;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--dark);
+      }
+
+      .cart-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        padding: 0.5rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--accent);
+        color: white;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .category-header {
+        margin: 2rem 0;
+        text-align: center;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("/api/placeholder/1200/400") center/cover no-repeat;
+        padding: 3rem 1rem;
+        border-radius: 10px;
+        color: white;
+      }
+
+      .category-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .category-header p {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .filters-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        background-color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .filter-options {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .filter-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .filter-select {
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: white;
+      }
+
+      .sort-options {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-img {
+        height: 200px;
+        width: 100%;
+        object-fit: contain;
+        background-color: #f5f5f7;
+        padding: 1rem;
+      }
+
+      .product-info {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-name {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .product-specs {
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      .spec-item {
+        margin-bottom: 0.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .spec-icon {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .product-price {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        margin-top: auto;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .add-to-cart {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        flex-grow: 1;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .wishlist-btn {
+        background-color: #f5f5f7;
+        color: var(--dark);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin: 3rem 0;
+      }
+
+      .page-btn {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ddd;
+        background-color: white;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .page-btn.active {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .page-btn:hover:not(.active) {
+        background-color: #f5f5f7;
+      }
+
+      .brand-filters {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .brand-filter {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+      }
+
+      .brand-filter.active {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .brand-filter:hover:not(.active) {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 30px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      .badge.new {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .badge.sale {
+        background-color: var(--accent);
+        color: white;
+      }
+
+      .original-price {
+        text-decoration: line-through;
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+
+      .rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .stars {
+        color: #ffc107;
+        margin-right: 0.5rem;
+      }
+
+      .review-count {
+        font-size: 0.8rem;
+        color: #6c757d;
+      }
+
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-column ul li a {
+        color: #adb5bd;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: white;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icons a {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--primary);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #adb5bd;
+        font-size: 0.9rem;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--success);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 9999;
+        animation: slideIn 0.3s ease-out forwards;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+      }
+      .remove-item {
+        color: var(--accent);
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .cart-item {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .cart-item-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+
+      .cart-item-info {
+        flex: 1;
+      }
+
+      .cart-item-title {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+
+      .cart-item-price {
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .cart-quantity {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .cart-items {
+        margin: 1rem 0;
+        max-height: 300px;
+        overflow-y: auto;
+      }
+      .quantity-btn {
+        background-color: #f5f5f7;
+        border: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .cart-summary {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 2px dashed #ddd;
+      }
+      .cart-total {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .checkout-btn {
+        background-color: var(--success);
+        color: white;
+        border: none;
+        padding: 0.8rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 500;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .filters-container {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .filter-options,
+        .sort-options {
+          width: 100%;
+        }
+
+        .category-header h1 {
+          font-size: 2rem;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .mobile-menu-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container header-content">
+        <div class="logo">
+          <a href="index.html">📱 ConnectShop</a>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">Inicio</a>
+          <a href="#">Productos</a>
+          <a href="#">Ofertas</a>
+          <a href="#">Soporte</a>
+          <a href="#">Nosotros</a>
+        </div>
+        <div class="user-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar smartphones..." />
+            <button>🔍</button>
+          </div>
+          <button class="cart-btn" id="cart-btn">
+            🛒
+            <span class="cart-count">0</span>
+          </button>
+          <button class="mobile-menu-btn">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="category-header">
+        <h1>Smartphones</h1>
+        <p>
+          Descubre los smartphones más avanzados con la última tecnología,
+          cámaras increíbles y pantallas de alta resolución.
+        </p>
+      </section>
+
+      <section class="brand-filters">
+        <div class="brand-filter active">Todos</div>
+        <div class="brand-filter">Apple</div>
+        <div class="brand-filter">Samsung</div>
+        <div class="brand-filter">Xiaomi</div>
+        <div class="brand-filter">Google</div>
+        <div class="brand-filter">Huawei</div>
+        <div class="brand-filter">OnePlus</div>
+      </section>
+
+      <section class="filters-container">
+        <div class="filter-options">
+          <div class="filter-group">
+            <span class="filter-label">Precio:</span>
+            <select class="filter-select">
+              <option>Todos los precios</option>
+              <option>Menos de $300</option>
+              <option>$300 - $600</option>
+              <option>$600 - $900</option>
+              <option>$900 - $1200</option>
+              <option>Más de $1200</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Memoria:</span>
+            <select class="filter-select">
+              <option>Todas las capacidades</option>
+              <option>64GB</option>
+              <option>128GB</option>
+              <option>256GB</option>
+              <option>512GB</option>
+              <option>1TB</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">RAM:</span>
+            <select class="filter-select">
+              <option>Todas las opciones</option>
+              <option>4GB</option>
+              <option>6GB</option>
+              <option>8GB</option>
+              <option>12GB</option>
+              <option>16GB</option>
+            </select>
+          </div>
+        </div>
+        <div class="sort-options">
+          <span class="filter-label">Ordenar por:</span>
+          <select class="filter-select">
+            <option>Relevancia</option>
+            <option>Precio: De menor a mayor</option>
+            <option>Precio: De mayor a menor</option>
+            <option>Más vendidos</option>
+            <option>Novedades</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="products-grid">
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="iPhone 15 Pro"
+              class="product-img"
+            />
+            <span class="badge new">NUEVO</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">iPhone 15 Pro</h3>
+            <div class="rating">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(124 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.1" Super Retina XDR OLED</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>4323 mAh, carga rápida 25W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>48MP principal, 12MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>256GB, 8GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">$1,099.99</div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="101"
+                data-name="iPhone 15 Pro"
+                data-price="1099.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="Samsung Galaxy S24 Ultra"
+              class="product-img"
+            />
+            <span class="badge new">NUEVO</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Samsung Galaxy S24 Ultra</h3>
+            <div class="rating">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(98 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.8" Dynamic AMOLED 2X</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>5000 mAh, carga rápida 45W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>200MP principal, 12MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>512GB, 12GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">$1,299.99</div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="102"
+                data-name="Samsung Galaxy S24 Ultra"
+                data-price="1299.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="Google Pixel 8 Pro"
+              class="product-img"
+            />
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Google Pixel 8 Pro</h3>
+            <div class="rating">
+              <div class="stars">★★★★☆</div>
+              <span class="review-count">(76 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.7" LTPO OLED, 120Hz</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>4950 mAh, carga rápida 30W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>50MP principal, 48MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>256GB, 12GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">$999.99</div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="103"
+                data-name="Google Pixel 8 Pro"
+                data-price="999.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="Xiaomi 14 Ultra"
+              class="product-img"
+            />
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Xiaomi 14 Ultra</h3>
+            <div class="rating">
+              <div class="stars">★★★★☆</div>
+              <span class="review-count">(59 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.73" AMOLED, 120Hz</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>5000 mAh, carga rápida 90W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>50MP principal, 48MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>256GB, 12GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">$949.99</div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="104"
+                data-name="Xiaomi 14 Ultra"
+                data-price="949.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="OnePlus 12"
+              class="product-img"
+            />
+            <span class="badge sale">OFERTA</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">OnePlus 12</h3>
+            <div class="rating">
+              <div class="stars">★★★★★</div>
+              <span class="review-count">(87 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.82" LTPO AMOLED, 120Hz</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>5400 mAh, carga rápida 100W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>50MP principal, 48MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>256GB, 12GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">
+              $849.99 <span class="original-price">$999.99</span>
+            </div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="105"
+                data-name="OnePlus 12"
+                data-price="849.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative">
+            <img
+              src="/api/placeholder/400/300"
+              alt="iPhone 14"
+              class="product-img"
+            />
+            <span class="badge sale">OFERTA</span>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">iPhone 14</h3>
+            <div class="rating">
+              <div class="stars">★★★★☆</div>
+              <span class="review-count">(112 reseñas)</span>
+            </div>
+            <div class="product-specs">
+              <div class="spec-item">
+                <span class="spec-icon">📱</span>
+                <span>6.1" Super Retina XDR OLED</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">🔋</span>
+                <span>3279 mAh, carga rápida 20W</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">📷</span>
+                <span>12MP principal, 12MP ultra-wide</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-icon">💾</span>
+                <span>128GB, 6GB RAM</span>
+              </div>
+            </div>
+            <div class="product-price">
+              $699.99 <span class="original-price">$799.99</span>
+            </div>
+            <div class="product-actions">
+              <button
+                class="add-to-cart"
+                data-id="106"
+                data-name="iPhone 14"
+                data-price="699.99"
+              >
+                Añadir al Carrito 🛒
+              </button>
+              <button class="wishlist-btn">❤️</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div style="position: relative"></div>
+        </div>
+      </section>
+    </main>
+    <!-- Tu Carrito -->
+    <div class="modal" id="cart-modal">
+      <div class="modal-content">
+        <button class="close-modal" id="close-modal">&times;</button>
+        <h2>Tu Carrito</h2>
+        <div class="cart-items" id="cart-items">
+          <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total-price">$0.00</span>
+          </div>
+          <button class="checkout-btn">Proceder al Pago</button>
+        </div>
+      </div>
+    </div>
+    <!-- Final Tu Carrito -->
+    <script>
+      // Cart functionality
+      let cart = [];
+      let cartCount = 0;
+
+      // DOM Elements
+      const cartBtn = document.getElementById("cart-btn");
+      const cartModal = document.getElementById("cart-modal");
+      const closeModal = document.getElementById("close-modal");
+      const cartItems = document.getElementById("cart-items");
+      const cartTotalPrice = document.getElementById("cart-total-price");
+      const cartCountElement = document.querySelector(".cart-count");
+      const addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+      // Event Listeners
+      cartBtn.addEventListener("click", openCart);
+      closeModal.addEventListener("click", closeCart);
+
+      addToCartButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = this.dataset.id;
+          const productName = this.dataset.name;
+          const productPrice = parseFloat(this.dataset.price);
+
+          addToCart(productId, productName, productPrice);
+        });
+      });
+
+      // Functions
+      function openCart() {
+        cartModal.style.display = "flex";
+        renderCart();
+      }
+
+      function closeCart() {
+        cartModal.style.display = "none";
+      }
+
+      function addToCart(id, name, price) {
+        const existingItem = cart.find((item) => item.id === id);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id,
+            name,
+            price,
+            quantity: 1,
+          });
+        }
+
+        cartCount += 1;
+        cartCountElement.textContent = cartCount;
+
+        // Show notification
+        showNotification(`${name} añadido al carrito!`);
+
+        // Save cart to localStorage
+        saveCart();
+      }
+
+      function removeFromCart(id) {
+        const itemIndex = cart.findIndex((item) => item.id === id);
+
+        if (itemIndex !== -1) {
+          cartCount -= cart[itemIndex].quantity;
+          cart.splice(itemIndex, 1);
+          cartCountElement.textContent = cartCount;
+          renderCart();
+          saveCart();
+        }
+      }
+
+      function updateQuantity(id, newQuantity) {
+        const item = cart.find((item) => item.id === id);
+
+        if (item) {
+          const quantityDiff = newQuantity - item.quantity;
+          cartCount += quantityDiff;
+          item.quantity = newQuantity;
+
+          cartCountElement.textContent = cartCount;
+          renderCart();
+          saveCart();
+        }
+      }
+
+      function renderCart() {
+        cartItems.innerHTML = "";
+
+        if (cart.length === 0) {
+          cartItems.innerHTML = "<p>Tu carrito está vacío</p>";
+          cartTotalPrice.textContent = "$0.00";
+          return;
+        }
+
+        let total = 0;
+
+        cart.forEach((item) => {
+          const itemTotal = item.price * item.quantity;
+          total += itemTotal;
+
+          const cartItem = document.createElement("div");
+          cartItem.className = "cart-item";
+          cartItem.innerHTML = `
+                    <img src="/api/placeholder/200/2004" alt="${
+                      item.name
+                    }" class="cart-item-img">
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(
+                          2
+                        )}</div>
+                        <div class="cart-quantity">
+                            <button class="quantity-btn decrease" data-id="${
+                              item.id
+                            }">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${
+                              item.id
+                            }">+</button>
+                        </div>
+                        <button class="remove-item" data-id="${
+                          item.id
+                        }">Eliminar</button>
+                    </div>
+                `;
+
+          cartItems.appendChild(cartItem);
+        });
+
+        cartTotalPrice.textContent = `$${total.toFixed(2)}`;
+
+        // Add event listeners for quantity buttons
+        const decreaseButtons = document.querySelectorAll(".decrease");
+        const increaseButtons = document.querySelectorAll(".increase");
+        const removeButtons = document.querySelectorAll(".remove-item");
+
+        decreaseButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const item = cart.find((item) => item.id === id);
+
+            if (item && item.quantity > 1) {
+              updateQuantity(id, item.quantity - 1);
+            }
+          });
+        });
+
+        increaseButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const item = cart.find((item) => item.id === id);
+
+            if (item) {
+              updateQuantity(id, item.quantity + 1);
+            }
+          });
+        });
+
+        removeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const id = this.dataset.id;
+            removeFromCart(id);
+          });
+        });
+      }
+
+      function showNotification(message) {
+        alert(message);
+      }
+
+      function saveCart() {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      function loadCart() {
+        const savedCart = localStorage.getItem("cart");
+        if (savedCart) {
+          cart = JSON.parse(savedCart);
+          cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+          cartCountElement.textContent = cartCount;
+        }
+      }
+
+      // Load cart from localStorage on page load
+      loadCart();
+    </script>
+  </body>
+</html>
