@@ -755,7 +755,7 @@
       </section>
 
       <section class="products-grid">
-        <div class="product-card">
+        <div class="product-card" data-brand="Apple">
           <div style="position: relative">
             <img
               src="/api/placeholder/400/300"
@@ -803,7 +803,7 @@
           </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-brand="Samsung">
           <div style="position: relative">
             <img
               src="/api/placeholder/400/300"
@@ -851,7 +851,7 @@
           </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-brand="Google">
           <div style="position: relative">
             <img
               src="/api/placeholder/400/300"
@@ -898,7 +898,7 @@
           </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-brand="Xiaomi">
           <div style="position: relative">
             <img
               src="/api/placeholder/400/300"
@@ -945,7 +945,7 @@
           </div>
         </div>
 
-        <div class="product-card">
+        <div class="product-card" data-brand="Lenovo">
           <div style="position: relative">
             <img
               src="/api/placeholder/400/300"
@@ -1256,6 +1256,97 @@
 
       // Load cart from localStorage on page load
       loadCart();
+    </script>
+    <script>
+      // Filtro por marcas
+      const brandFilters = document.querySelectorAll(".brand-filter");
+      const productCards = document.querySelectorAll(".product-card");
+
+      brandFilters.forEach((filter) => {
+        filter.addEventListener("click", () => {
+          // Quitar clase activa de todas
+          brandFilters.forEach((f) => f.classList.remove("active"));
+          filter.classList.add("active");
+
+          const selectedBrand = filter.textContent.trim();
+
+          productCards.forEach((card) => {
+            const brand = card.getAttribute("data-brand");
+
+            if (selectedBrand === "Todos" || brand === selectedBrand) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      const ramSelect = document.querySelector("select:nth-of-type(3)");
+      const storageSelect = document.querySelector("select:nth-of-type(2)");
+      const priceSelect = document.querySelector("select:nth-of-type(1)");
+
+      const updateProductFilters = () => {
+        const selectedBrand =
+          document.querySelector(".brand-filter.active")?.textContent.trim() ||
+          "Todos";
+        const selectedRam = ramSelect.value;
+        const selectedStorage = storageSelect.value;
+        const selectedPrice = priceSelect.value;
+
+        productCards.forEach((card) => {
+          const brand = card.getAttribute("data-brand");
+          const ram = parseInt(card.getAttribute("data-ram"));
+          const storage = parseInt(card.getAttribute("data-storage"));
+          const price = parseFloat(card.getAttribute("data-price"));
+
+          let show = true;
+
+          // Marca
+          if (selectedBrand !== "Todos" && brand !== selectedBrand)
+            show = false;
+
+          // RAM
+          if (
+            selectedRam !== "Todas las opciones" &&
+            parseInt(selectedRam) !== ram
+          )
+            show = false;
+
+          // Memoria interna
+          if (
+            selectedStorage !== "Todas las capacidades" &&
+            parseInt(selectedStorage) !== storage
+          )
+            show = false;
+
+          // Precio
+          if (selectedPrice !== "Todos los precios") {
+            if (selectedPrice === "Menos de $300" && price >= 300) show = false;
+            if (selectedPrice === "$300 - $600" && (price < 300 || price > 600))
+              show = false;
+            if (selectedPrice === "$600 - $900" && (price < 600 || price > 900))
+              show = false;
+            if (
+              selectedPrice === "$900 - $1200" &&
+              (price < 900 || price > 1200)
+            )
+              show = false;
+            if (selectedPrice === "Más de $1200" && price <= 1200) show = false;
+          }
+
+          card.style.display = show ? "flex" : "none";
+        });
+      };
+
+      ramSelect.addEventListener("change", updateProductFilters);
+      storageSelect.addEventListener("change", updateProductFilters);
+      priceSelect.addEventListener("change", updateProductFilters);
+
+      brandFilters.forEach((btn) => {
+        btn.addEventListener("click", updateProductFilters);
+      });
     </script>
   </body>
 </html>
